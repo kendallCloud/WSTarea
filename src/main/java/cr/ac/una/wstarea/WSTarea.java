@@ -8,10 +8,11 @@ package cr.ac.una.wstarea;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import java.lang.String;
 
 /**
  *
- * @author Kenda
+ * @author Kendall
  */
 @WebService(serviceName = "WSTarea")
 public class WSTarea {
@@ -23,4 +24,27 @@ public class WSTarea {
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
     }
+    
+    /**
+     *
+     * @param folio
+     * @return
+     */
+    @WebMethod(operationName = "validar")
+     public String Validar(@WebParam(name = "folio") String folio){
+         String folios[]={"098w","6s4","ab12","af32"};
+         
+         String result="No se encontró el folio.\n";
+         
+         for(String val:folios){
+                if(val == null ? folio == null : val.equals(folio)) result="si existe el folio.\n";
+            }
+         
+        return result;
+         
+     }
+    
 }
+
+
+
