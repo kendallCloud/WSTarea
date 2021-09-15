@@ -24,13 +24,13 @@ public class EmpleadoService {
       private static final Logger LOG = Logger.getLogger(MarcaService.class.getName());
       private EntityManager em;
       
-       public Respuesta validarFolio(String folio) {
+       public Respuesta BuscarFolio(String folio) {
            
              try {
-            Query qry = em.createNamedQuery("Empleado.findByPkFolio", Empleado.class);
+            Query qry = em.createNamedQuery("Empleado.findByPkFolio",Empleado.class);
             qry.setParameter("pkFolio",folio);
 
-            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Empleado", new EmpleadoDto((Empleado) qryActividad.getSingleResult()));
+               return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Empleado", new EmpleadoDto((Empleado) qry.getSingleResult()));
             }
              catch (NoResultException ex) {
             return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No existe un usuario con las credenciales ingresadas.", "validarUsuario NoResultException");
@@ -41,7 +41,6 @@ public class EmpleadoService {
             LOG.log(Level.SEVERE, "Ocurrio un error al consultar el usuario.", ex);
             return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al consultar el usuario.", "validarUsuario " + ex.getMessage());
         }
-
            
        }
       
