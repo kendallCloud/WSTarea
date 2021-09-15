@@ -8,15 +8,19 @@ package cr.ac.una.wstarea.Model;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -28,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Kendall
  */
 @Entity
+@Table(name = "Empleado")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e"),
@@ -50,17 +55,21 @@ public class Empleado implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
+    @Column(name = "nombre")
     private String nombre;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 30)
+    @Column(name = "apellido")
     private String apellido;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
+    @Column(name = "cedula")
     private String cedula;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "admin")
     private BigInteger admin;
     @Basic(optional = false)
     @NotNull
@@ -68,13 +77,15 @@ public class Empleado implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNac;
     @Size(max = 30)
+    @Column(name = "passwrd")
     private String passwrd;
     @Basic(optional = false)
     @NotNull
     @Lob
+    @Column(name = "foto")
     private Serializable foto;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "empleado")
-    private Marca marca;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado", fetch = FetchType.LAZY)
+    private List<Marca> marca;
 
     public Empleado() {
     }
@@ -157,13 +168,15 @@ public class Empleado implements Serializable {
         this.foto = foto;
     }
 
-    public Marca getMarca() {
+    public List<Marca> getMarca() {
         return marca;
     }
 
-    public void setMarca(Marca marca) {
+    public void setMarca(List<Marca> marca) {
         this.marca = marca;
     }
+
+   
 
     @Override
     public int hashCode() {

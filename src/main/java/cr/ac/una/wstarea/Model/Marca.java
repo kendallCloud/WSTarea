@@ -10,11 +10,13 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -26,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author Kenda
  */
 @Entity
+@Table(name = "Marca")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m"),
@@ -50,10 +53,11 @@ public class Marca implements Serializable {
     private Date horaSalida;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "jornada")
     @Temporal(TemporalType.TIMESTAMP)
     private Date jornada;
     @JoinColumn(name = "pk_folio", referencedColumnName = "pk_folio", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, fetch = FetchType.LAZY)
     private Empleado empleado;
 
     public Marca() {
