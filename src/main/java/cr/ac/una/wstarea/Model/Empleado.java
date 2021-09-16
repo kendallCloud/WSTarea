@@ -5,6 +5,7 @@
  */
 package cr.ac.una.wstarea.Model;
 
+import cr.ac.una.wstarea.Dto.EmpleadoDto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -85,16 +86,16 @@ public class Empleado implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
-    private BigDecimal id;
+    private Long id;
 
     public Empleado() {
     }
 
-    public Empleado(BigDecimal id) {
+    public Empleado(Long id) {
         this.id = id;
     }
 
-    public Empleado(BigDecimal id, String folio, String nombre, String apellido, String cedula, BigInteger admin, Date fechaNac, Serializable foto) {
+    public Empleado(Long id, String folio, String nombre, String apellido, String cedula, BigInteger admin, Date fechaNac, Serializable foto) {
         this.id = id;
         this.folio = folio;
         this.nombre = nombre;
@@ -103,6 +104,10 @@ public class Empleado implements Serializable {
         this.admin = admin;
         this.fechaNac = fechaNac;
         this.foto = foto;
+    }
+
+    public Empleado(EmpleadoDto empl) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     public String getFolio() {
@@ -169,11 +174,11 @@ public class Empleado implements Serializable {
         this.foto = foto;
     }
 
-    public BigDecimal getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -200,6 +205,10 @@ public class Empleado implements Serializable {
     @Override
     public String toString() {
         return "cr.ac.una.wstarea.Model.Empleado[ id=" + id + " ]";
+    }
+
+    public void NuevoEmpleado(EmpleadoDto empl) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

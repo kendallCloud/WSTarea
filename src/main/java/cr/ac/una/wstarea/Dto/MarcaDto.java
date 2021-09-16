@@ -18,24 +18,16 @@ import javax.validation.constraints.NotNull;
  * @author Kendall
  */
 public class MarcaDto {
-    private String pkFolio;
     private Date horaEntrada;
     private Date horaSalida;
     private Date jornada;
+    private Long id;
 
     public MarcaDto(Marca marc) {
-        this.pkFolio = marc.getPkFolio();
+        this.id = marc.getPkMarca();
         this.horaEntrada = marc.getHoraEntrada();
         this.horaSalida = marc.getHoraEntrada();
         this.jornada = marc.getHoraSalida();
-    }
-
-    public String getPkFolio() {
-        return pkFolio;
-    }
-
-    public void setPkFolio(String pkFolio) {
-        this.pkFolio = pkFolio;
     }
 
     public Date getHoraEntrada() {

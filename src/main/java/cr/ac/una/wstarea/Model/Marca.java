@@ -6,7 +6,6 @@
 package cr.ac.una.wstarea.Model;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
@@ -54,18 +53,18 @@ public class Marca implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "pk_Marca")
-    private BigDecimal pkMarca;
+    private Long pkMarca;
     @Column(name = "id")
     private BigInteger id;
 
     public Marca() {
     }
 
-    public Marca(BigDecimal pkMarca) {
+    public Marca(Long pkMarca) {
         this.pkMarca = pkMarca;
     }
 
-    public Marca(BigDecimal pkMarca, Date jornada) {
+    public Marca(Long pkMarca, Date jornada) {
         this.pkMarca = pkMarca;
         this.jornada = jornada;
     }
@@ -94,11 +93,11 @@ public class Marca implements Serializable {
         this.jornada = jornada;
     }
 
-    public BigDecimal getPkMarca() {
+    public Long getPkMarca() {
         return pkMarca;
     }
 
-    public void setPkMarca(BigDecimal pkMarca) {
+    public void setPkMarca(Long pkMarca) {
         this.pkMarca = pkMarca;
     }
 

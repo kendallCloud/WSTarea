@@ -22,17 +22,26 @@ public class EmpleadoDto {
     private String cedula;
     private boolean admin;
     private final Date nacimiento;
-    private List<MarcaDto> marc;
+    private Long id;
     
     public EmpleadoDto(Empleado empleado){
-        this.folio = empleado.getPkFolio();
+        this.id = empleado.getId();
+        this.folio = empleado.getFolio();
         this.name = empleado.getNombre();
         this.lastname = empleado.getApellido();
         this.admin = (empleado.getAdmin().intValue()==1);
         this.nacimiento = empleado.getFechaNac();
-        this.marc = (List<MarcaDto>) new MarcaDto ((Marca) empleado.getMarca());
+      //  this.marc = (List<MarcaDto>) new MarcaDto ((Marca) empleado.getMarca());
     }     
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getFolio() {
         return folio;
     }
@@ -72,7 +81,7 @@ public class EmpleadoDto {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
-
+/*
     public List<MarcaDto> getMarc() {
         return marc;
     }
@@ -80,7 +89,7 @@ public class EmpleadoDto {
     public void setMarc(List<MarcaDto> marc) {
         this.marc = marc;
     }
-     
+     */
     
     
 }
