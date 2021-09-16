@@ -31,8 +31,56 @@ public class EmpleadoDto {
         this.admin = (empleado.getAdmin().intValue()==1);
         this.nacimiento = empleado.getFechaNac();
         this.marc = (List<MarcaDto>) new MarcaDto ((Marca) empleado.getMarca());
+    }     
+
+    public String getFolio() {
+        return folio;
     }
-    
-    
+
+    public void setFolio(String folio) {
+        this.folio = folio;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    public List<MarcaDto> getMarc() {
+        return marc;
+    }
+
+    public void setMarc(List<MarcaDto> marc) {
+        this.marc = marc;
+    }
      
+    
+    
 }

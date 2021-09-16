@@ -6,20 +6,16 @@
 package cr.ac.una.wstarea.Model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,29 +25,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Kendall
+ * @author Kenda
  */
 @Entity
 @Table(name = "Empleado")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Empleado.findAll", query = "SELECT e FROM Empleado e"),
-    @NamedQuery(name = "Empleado.findByPkFolio", query = "SELECT e FROM Empleado e WHERE e.pkFolio = :pkFolio"),
+    @NamedQuery(name = "Empleado.findByFolio", query = "SELECT e FROM Empleado e WHERE e.folio = :folio"),
     @NamedQuery(name = "Empleado.findByNombre", query = "SELECT e FROM Empleado e WHERE e.nombre = :nombre"),
     @NamedQuery(name = "Empleado.findByApellido", query = "SELECT e FROM Empleado e WHERE e.apellido = :apellido"),
     @NamedQuery(name = "Empleado.findByCedula", query = "SELECT e FROM Empleado e WHERE e.cedula = :cedula"),
     @NamedQuery(name = "Empleado.findByAdmin", query = "SELECT e FROM Empleado e WHERE e.admin = :admin"),
     @NamedQuery(name = "Empleado.findByFechaNac", query = "SELECT e FROM Empleado e WHERE e.fechaNac = :fechaNac"),
-    @NamedQuery(name = "Empleado.findByPasswrd", query = "SELECT e FROM Empleado e WHERE e.passwrd = :passwrd")})
+    @NamedQuery(name = "Empleado.findByPasswrd", query = "SELECT e FROM Empleado e WHERE e.passwrd = :passwrd"),
+    @NamedQuery(name = "Empleado.findById", query = "SELECT e FROM Empleado e WHERE e.id = :id")})
 public class Empleado implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 10)
-    @Column(name = "pk_folio")
-    private String pkFolio;
+    @Column(name = "folio")
+    private String folio;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
@@ -84,18 +80,23 @@ public class Empleado implements Serializable {
     @Lob
     @Column(name = "foto")
     private Serializable foto;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "empleado", fetch = FetchType.LAZY)
-    private List<Marca> marca;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "id")
+    private BigDecimal id;
 
     public Empleado() {
     }
 
-    public Empleado(String pkFolio) {
-        this.pkFolio = pkFolio;
+    public Empleado(BigDecimal id) {
+        this.id = id;
     }
 
-    public Empleado(String pkFolio, String nombre, String apellido, String cedula, BigInteger admin, Date fechaNac, Serializable foto) {
-        this.pkFolio = pkFolio;
+    public Empleado(BigDecimal id, String folio, String nombre, String apellido, String cedula, BigInteger admin, Date fechaNac, Serializable foto) {
+        this.id = id;
+        this.folio = folio;
         this.nombre = nombre;
         this.apellido = apellido;
         this.cedula = cedula;
@@ -104,12 +105,12 @@ public class Empleado implements Serializable {
         this.foto = foto;
     }
 
-    public String getPkFolio() {
-        return pkFolio;
+    public String getFolio() {
+        return folio;
     }
 
-    public void setPkFolio(String pkFolio) {
-        this.pkFolio = pkFolio;
+    public void setFolio(String folio) {
+        this.folio = folio;
     }
 
     public String getNombre() {
@@ -168,20 +169,18 @@ public class Empleado implements Serializable {
         this.foto = foto;
     }
 
-    public List<Marca> getMarca() {
-        return marca;
+    public BigDecimal getId() {
+        return id;
     }
 
-    public void setMarca(List<Marca> marca) {
-        this.marca = marca;
+    public void setId(BigDecimal id) {
+        this.id = id;
     }
-
-   
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (pkFolio != null ? pkFolio.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -192,7 +191,7 @@ public class Empleado implements Serializable {
             return false;
         }
         Empleado other = (Empleado) object;
-        if ((this.pkFolio == null && other.pkFolio != null) || (this.pkFolio != null && !this.pkFolio.equals(other.pkFolio))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -200,7 +199,7 @@ public class Empleado implements Serializable {
 
     @Override
     public String toString() {
-        return "cr.ac.una.wstarea.Model.Empleado[ pkFolio=" + pkFolio + " ]";
+        return "cr.ac.una.wstarea.Model.Empleado[ id=" + id + " ]";
     }
     
 }

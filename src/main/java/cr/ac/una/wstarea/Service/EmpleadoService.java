@@ -43,5 +43,28 @@ public class EmpleadoService {
         }
            
        }
+       
+       
+       public Respuesta guardarEmpleado(EmpleadoDto empl) {
+        try {
+            Empleado empleado;
+            if (empl.getFolio() != null && !"".equals(empl.getFolio())){
+                empleado = em.find(Empleado.class, empl.getFolio());
+                if (empleado == null) {
+                    return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No existe registro del folio ingresado.", "guardarEmpleado NoResultException");
+                }
+                empleado.NuevoEmpleado(empl);
+                empleado = em.merge(empleado);
+            } else {
+                empleado = new Empleado(empl);
+                em.persist(empleado);
+            }
+            em.flush();
+            return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Empleado", new EmpleadoDto(empleado));
+        } catch (Exception ex) {
+            LOG.log(Level.SEVERE, "Ocurrio un error al guardar el empleado.", ex);
+            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al guardar el empleado.", "guardarEmpleado " + ex.getMessage());
+        }
+    }
       
 }

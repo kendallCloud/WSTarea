@@ -6,21 +6,19 @@
 package cr.ac.una.wstarea.Model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -32,19 +30,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Marca.findAll", query = "SELECT m FROM Marca m"),
-    @NamedQuery(name = "Marca.findByPkFolio", query = "SELECT m FROM Marca m WHERE m.pkFolio = :pkFolio"),
     @NamedQuery(name = "Marca.findByHoraEntrada", query = "SELECT m FROM Marca m WHERE m.horaEntrada = :horaEntrada"),
     @NamedQuery(name = "Marca.findByHoraSalida", query = "SELECT m FROM Marca m WHERE m.horaSalida = :horaSalida"),
-    @NamedQuery(name = "Marca.findByJornada", query = "SELECT m FROM Marca m WHERE m.jornada = :jornada")})
+    @NamedQuery(name = "Marca.findByJornada", query = "SELECT m FROM Marca m WHERE m.jornada = :jornada"),
+    @NamedQuery(name = "Marca.findByPkMarca", query = "SELECT m FROM Marca m WHERE m.pkMarca = :pkMarca"),
+    @NamedQuery(name = "Marca.findById", query = "SELECT m FROM Marca m WHERE m.id = :id")})
 public class Marca implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 10)
-    @Column(name = "pk_folio")
-    private String pkFolio;
     @Column(name = "hora_entrada")
     @Temporal(TemporalType.TIMESTAMP)
     private Date horaEntrada;
@@ -56,28 +49,25 @@ public class Marca implements Serializable {
     @Column(name = "jornada")
     @Temporal(TemporalType.TIMESTAMP)
     private Date jornada;
-    @JoinColumn(name = "pk_folio", referencedColumnName = "pk_folio", insertable = false, updatable = false)
-    @OneToOne(optional = false, fetch = FetchType.LAZY)
-    private Empleado empleado;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Id
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "pk_Marca")
+    private BigDecimal pkMarca;
+    @Column(name = "id")
+    private BigInteger id;
 
     public Marca() {
     }
 
-    public Marca(String pkFolio) {
-        this.pkFolio = pkFolio;
+    public Marca(BigDecimal pkMarca) {
+        this.pkMarca = pkMarca;
     }
 
-    public Marca(String pkFolio, Date jornada) {
-        this.pkFolio = pkFolio;
+    public Marca(BigDecimal pkMarca, Date jornada) {
+        this.pkMarca = pkMarca;
         this.jornada = jornada;
-    }
-
-    public String getPkFolio() {
-        return pkFolio;
-    }
-
-    public void setPkFolio(String pkFolio) {
-        this.pkFolio = pkFolio;
     }
 
     public Date getHoraEntrada() {
@@ -104,18 +94,26 @@ public class Marca implements Serializable {
         this.jornada = jornada;
     }
 
-    public Empleado getEmpleado() {
-        return empleado;
+    public BigDecimal getPkMarca() {
+        return pkMarca;
     }
 
-    public void setEmpleado(Empleado empleado) {
-        this.empleado = empleado;
+    public void setPkMarca(BigDecimal pkMarca) {
+        this.pkMarca = pkMarca;
+    }
+
+    public BigInteger getId() {
+        return id;
+    }
+
+    public void setId(BigInteger id) {
+        this.id = id;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (pkFolio != null ? pkFolio.hashCode() : 0);
+        hash += (pkMarca != null ? pkMarca.hashCode() : 0);
         return hash;
     }
 
@@ -126,7 +124,7 @@ public class Marca implements Serializable {
             return false;
         }
         Marca other = (Marca) object;
-        if ((this.pkFolio == null && other.pkFolio != null) || (this.pkFolio != null && !this.pkFolio.equals(other.pkFolio))) {
+        if ((this.pkMarca == null && other.pkMarca != null) || (this.pkMarca != null && !this.pkMarca.equals(other.pkMarca))) {
             return false;
         }
         return true;
@@ -134,7 +132,7 @@ public class Marca implements Serializable {
 
     @Override
     public String toString() {
-        return "cr.ac.una.wstarea.Model.Marca[ pkFolio=" + pkFolio + " ]";
+        return "cr.ac.una.wstarea.Model.Marca[ pkMarca=" + pkMarca + " ]";
     }
     
 }
