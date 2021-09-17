@@ -23,6 +23,8 @@ public class EmpleadoDto {
     private boolean admin;
     private final Date nacimiento;
     private Long id;
+    private String psswr;
+    
     
     public EmpleadoDto(Empleado empleado){
         this.id = empleado.getId();
@@ -31,9 +33,19 @@ public class EmpleadoDto {
         this.lastname = empleado.getApellido();
         this.admin = (empleado.getAdmin().intValue()==1);
         this.nacimiento = empleado.getFechaNac();
+        this.psswr = empleado.getPasswrd();
       //  this.marc = (List<MarcaDto>) new MarcaDto ((Marca) empleado.getMarca());
     }     
 
+    public String getPsswr() {
+        return psswr;
+    }
+
+    public void setPsswr(String psswr) {
+        this.psswr = psswr;
+    }
+    
+    
     public Long getId() {
         return id;
     }

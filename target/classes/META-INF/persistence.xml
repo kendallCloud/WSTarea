@@ -4,5 +4,8 @@
   <persistence-unit name="my_persistence_unit">
     <class>cr.ac.una.wstarea.Model.Empleado</class>
     <class>cr.ac.una.wstarea.Model.Marca</class>
+    <class>cr.ac.una.wstarea.Model.Enfermedad</class>
+    <class>cr.ac.una.wstarea.Model.Cita</class>
+    <class>cr.ac.una.wstarea.Model.Paciente</class>
   </persistence-unit>
 </persistence>
