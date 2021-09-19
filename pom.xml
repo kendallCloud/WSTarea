@@ -37,6 +37,12 @@
             <type>jar</type>
         </dependency>
         <dependency>
+            <groupId>cr.ac.una</groupId>
+            <artifactId>tarea</artifactId>
+            <version>1.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>${jakartaee}</version>
@@ -70,8 +76,7 @@
     <version>2.3.2</version>
     <type>pom</type>
 </dependency>
-
-        
+    
     </dependencies>
     
      <build>

@@ -7,7 +7,7 @@ package cr.ac.una.wstarea;
 
 import cr.ac.una.wstarea.Dto.EmpleadoDto;
 import cr.ac.una.wstarea.Service.EmpleadoService;
-import cr.ac.una.wstarea.Service.Util.Respuesta;
+import cr.ac.una.wstarea.Util.Respuesta;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;

@@ -7,8 +7,9 @@ package cr.ac.una.wstarea.Service;
 
 import cr.ac.una.wstarea.Dto.EmpleadoDto;
 import cr.ac.una.wstarea.Model.Empleado;
-import cr.ac.una.wstarea.Service.Util.CodigoRespuesta;
-import cr.ac.una.wstarea.Service.Util.Respuesta;
+import cr.ac.una.wstarea.Util.CodigoRespuesta;
+import cr.ac.una.wstarea.Util.EntityManagerHelper;
+import cr.ac.una.wstarea.Util.Respuesta;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
@@ -22,13 +23,13 @@ import javax.persistence.Query;
  */
 public class EmpleadoService {
       private static final Logger LOG = Logger.getLogger(MarcaService.class.getName());
-      private EntityManager em;
+      private final EntityManager em = EntityManagerHelper.getManager();
       
        public Respuesta BuscarFolio(String folio) {
            
              try {
-            Query qry = em.createNamedQuery("Empleado.findByPkFolio",Empleado.class);
-            qry.setParameter("pkFolio",folio);
+            Query qry = em.createNamedQuery("Empleado.findByFolio",Empleado.class);
+          if(null!=qry)  qry.setParameter("folio",folio);
 
                return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Empleado", new EmpleadoDto((Empleado) qry.getSingleResult()));
             }
@@ -43,8 +44,7 @@ public class EmpleadoService {
         }
            
        }
-       
-       
+              
        public Respuesta guardarEmpleado(EmpleadoDto empl) {
         try {
             Empleado empleado;

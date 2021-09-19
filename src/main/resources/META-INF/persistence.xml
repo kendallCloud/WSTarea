@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
   <!-- Define Persistence Unit -->
-  <persistence-unit name="my_persistence_unit">
+  <persistence-unit name="TareaPersist" transaction-type="JTA">
+    <jta-data-source>jdbc/Reloj</jta-data-source>
+    <exclude-unlisted-classes>false</exclude-unlisted-classes>
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>cr.ac.una.wstarea.Model.Empleado</class>
     <class>cr.ac.una.wstarea.Model.Marca</class>
-    <class>cr.ac.una.wstarea.Model.Enfermedad</class>
-    <class>cr.ac.una.wstarea.Model.Cita</class>
-    <class>cr.ac.una.wstarea.Model.Paciente</class>
+    <properties>
+     <property name="eclipselink.logging.level.sql" value="FINE"/>
+      <property name="eclipselink.logging.parameters" value="true"/>
+      <property name="eclipselink.logging.logger" value="JavaLogger"/>
+      <property name="eclipselink.logging.level" value="FINE"/>
+    </properties>
   </persistence-unit>
 </persistence>
