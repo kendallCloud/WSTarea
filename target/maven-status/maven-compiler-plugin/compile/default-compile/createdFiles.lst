@@ -1,11 +1,12 @@
-cr\ac\una\wstarea\Util\CodigoRespuesta.class
 cr\ac\una\wstarea\Service\MarcaService.class
 cr\ac\una\wstarea\Dto\EmpleadoDto.class
 cr\ac\una\wstarea\Util\EntityManagerHelper.class
 cr\ac\una\wstarea\Util\Secure.class
-cr\ac\una\wstarea\WSTarea.class
-cr\ac\una\wstarea\Util\Respuesta.class
 cr\ac\una\wstarea\Model\Marca.class
-cr\ac\una\wstarea\Model\Empleado.class
 cr\ac\una\wstarea\Dto\MarcaDto.class
 cr\ac\una\wstarea\Service\EmpleadoService.class
+cr\ac\una\wstarea\Util\CodigoRespuesta.class
+cr\ac\una\wstarea\WSTarea.class
+cr\ac\una\wstarea\Util\Respuesta.class
+cr\ac\una\wstarea\Util\Reportes.class
+cr\ac\una\wstarea\Model\Empleado.class

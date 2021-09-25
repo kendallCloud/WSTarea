@@ -7,12 +7,18 @@ package cr.ac.una.wstarea;
 
 import cr.ac.una.wstarea.Dto.EmpleadoDto;
 import cr.ac.una.wstarea.Service.EmpleadoService;
+import cr.ac.una.wstarea.Util.Reportes;
 import cr.ac.una.wstarea.Util.Respuesta;
+import java.io.FileNotFoundException;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import java.lang.String;
+import java.sql.SQLException;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.naming.NamingException;
+import net.sf.jasperreports.engine.JRException;
 
 /**
  *
@@ -74,10 +80,44 @@ public class WSTarea {
 
     /**
      * Web service operation
-     */
+//     * @return 
+//     * @throws java.io.FileNotFoundException
+//     * @throws net.sf.jasperreports.engine.JRException
+//     * @throws java.sql.SQLException
+    */
+    @WebMethod(operationName = "pdf")
+    public String pdf() {
+        try {
+            //        //TODO write your implementation code here:
+//
+Reportes r = new Reportes();
+//
+return r.generarReporteEmpleados2();
+//        
+//
+//    }
+
+//    /**
+//     * Web service operation
+//     */
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(WSTarea.class.getName()).log(Level.SEVERE, null, ex);
+            return "Archivo no encontrado";
+        } catch (SQLException ex) {
+            Logger.getLogger(WSTarea.class.getName()).log(Level.SEVERE, null, ex);
+            return "SQL exception";
+        } catch (JRException ex) {
+            Logger.getLogger(WSTarea.class.getName()).log(Level.SEVERE, null, ex);
+            return "JRE Exception";
+        } catch (NamingException ex) {
+            Logger.getLogger(WSTarea.class.getName()).log(Level.SEVERE, null, ex);
+            return "Naming Exception";
+        }
+//        return null;
   
-    
+    }
 }
+    
 
 
 
