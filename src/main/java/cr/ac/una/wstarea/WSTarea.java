@@ -49,7 +49,6 @@ public class WSTarea {
         return resultado;
          
      }
-
     /**
      * Web service operation
      */

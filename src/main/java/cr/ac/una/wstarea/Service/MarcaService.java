@@ -13,6 +13,8 @@ import cr.ac.una.wstarea.Util.CodigoRespuesta;
 import cr.ac.una.wstarea.Util.Respuesta;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
@@ -23,38 +25,23 @@ import javax.persistence.Query;
  *
  * @author Kendall
  */
+
+@LocalBean
+@Stateless
+
 public class MarcaService {
       private static final Logger LOG = Logger.getLogger(MarcaService.class.getName());
       private EntityManager em;
         public EntityTransaction et;
       
-         public Respuesta BuscarMarcas(String id) {
-           
-             try {
-            Query qry = em.createNamedQuery("Marca.findById",Marca.class);
-            qry.setParameter("id",id);
-
-               return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Marca", new MarcaDto((Marca) qry.getSingleResult()));
-            }
-             catch (NoResultException ex) {
-            return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No existe un usuario con las credenciales ingresadas.", "validarUsuario NoResultException");
-        } catch (NonUniqueResultException ex) {
-            LOG.log(Level.SEVERE, "Ocurrio un error al consultar el usuario.", ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al consultar el usuario.", "validarUsuario NonUniqueResultException");
-        } catch (Exception ex) {
-            LOG.log(Level.SEVERE, "Ocurrio un error al consultar el usuario.", ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al consultar el usuario.", "validarUsuario " + ex.getMessage());
-        }
-           
-       }
-         
+      
            public Respuesta guardarMarca(MarcaDto dto,boolean nuevo){
-        try {
-            et = em.getTransaction();
-            et.begin();
-            Marca entity = new Marca();
-            CodigoRespuesta cr;
-           //nueva partida.
+            try {
+                et = em.getTransaction();
+                et.begin();
+                Marca entity = new Marca();
+                CodigoRespuesta cr;
+               //nueva partida.
            if(nuevo){
                 entity = new Marca(dto);
                 em.persist(entity);//Guardo en BD

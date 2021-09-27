@@ -12,6 +12,8 @@ import cr.ac.una.wstarea.Util.EntityManagerHelper;
 import cr.ac.una.wstarea.Util.Respuesta;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
@@ -21,6 +23,10 @@ import javax.persistence.Query;
  *
  * @author Kendall
  */
+@LocalBean
+@Stateless
+
+
 public class EmpleadoService {
       private static final Logger LOG = Logger.getLogger(MarcaService.class.getName());
       private final EntityManager em = EntityManagerHelper.getManager();
@@ -31,8 +37,8 @@ public class EmpleadoService {
             Query qry = em.createNamedQuery("Empleado.findByFolio",Empleado.class);
           if(null!=qry) qry.setParameter("folio",folio);
               if(null!=qry) {
-                  Empleado aux = (Empleado)qry.getSingleResult();
-                  retorne = new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Empleado", new EmpleadoDto(aux));
+                 Empleado aux = (Empleado)qry.getSingleResult();
+                 retorne = new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Empleado", new EmpleadoDto(aux));
               }
             }
              catch (NoResultException ex) {
