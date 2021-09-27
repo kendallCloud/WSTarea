@@ -67,7 +67,7 @@ public class Empleado implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "admin")
-    private BigInteger admin;
+    private Long admin;
     @Basic(optional = false)
     @NotNull
     @Column(name = "fecha_nac")
@@ -80,7 +80,7 @@ public class Empleado implements Serializable {
     @NotNull
     @Lob
     @Column(name = "foto")
-    private Serializable foto;
+    private byte[]  foto;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Id
     @Basic(optional = false)
@@ -95,7 +95,7 @@ public class Empleado implements Serializable {
         this.id = id;
     }
 
-    public Empleado(Long id, String folio, String nombre, String apellido, String cedula, BigInteger admin, Date fechaNac, Serializable foto) {
+    public Empleado(Long id, String folio, String nombre, String apellido, String cedula, Long admin, Date fechaNac, byte[] foto) {
         this.id = id;
         this.folio = folio;
         this.nombre = nombre;
@@ -107,7 +107,15 @@ public class Empleado implements Serializable {
     }
 
     public Empleado(EmpleadoDto empl) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         this.id = empl.getId();
+        this.folio =  empl.getFolio();
+        this.nombre =  empl.getName() ;
+        this.apellido =  empl.getLastname() ;
+        this.cedula = empl.getCedula();
+      if(empl.isAdmin())  this.admin = Long.valueOf(1);
+      else this.admin = Long.valueOf(0);
+      this.fechaNac = empl.getNacimiento();
+       this.foto = empl.getFoto();
     }
 
     public String getFolio() {
@@ -142,11 +150,11 @@ public class Empleado implements Serializable {
         this.cedula = cedula;
     }
 
-    public BigInteger getAdmin() {
+    public Long getAdmin() {
         return admin;
     }
 
-    public void setAdmin(BigInteger admin) {
+    public void setAdmin(Long admin) {
         this.admin = admin;
     }
 
@@ -166,11 +174,11 @@ public class Empleado implements Serializable {
         this.passwrd = passwrd;
     }
 
-    public Serializable getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(Serializable foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 

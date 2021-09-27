@@ -5,6 +5,7 @@
  */
 package cr.ac.una.wstarea.Model;
 
+import cr.ac.una.wstarea.Dto.MarcaDto;
 import java.io.Serializable;
 import java.math.BigInteger;
 import java.util.Date;
@@ -55,9 +56,26 @@ public class Marca implements Serializable {
     @Column(name = "pk_Marca")
     private Long pkMarca;
     @Column(name = "id")
-    private BigInteger id;
+    private Long id;
 
     public Marca() {
+    }
+
+    public Marca(Date horaEntrada, Date horaSalida, Date jornada, Long pkMarca, Long id) {
+        this.horaEntrada = horaEntrada;
+        this.horaSalida = horaSalida;
+        this.jornada = jornada;
+        this.pkMarca = pkMarca;
+        this.id = id;
+    }
+    
+    
+     public Marca(MarcaDto mar) {
+        this.horaEntrada = mar.getHoraEntrada() ;
+        this.horaSalida = mar.getHoraSalida();
+        this.jornada = mar.getJornada();
+        this.id = mar.getId();
+        this.pkMarca = mar.getPkMarca();
     }
 
     public Marca(Long pkMarca) {
@@ -101,11 +119,11 @@ public class Marca implements Serializable {
         this.pkMarca = pkMarca;
     }
 
-    public BigInteger getId() {
+    public  Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

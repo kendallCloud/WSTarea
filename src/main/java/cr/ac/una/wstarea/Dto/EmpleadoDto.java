@@ -7,6 +7,7 @@ package cr.ac.una.wstarea.Dto;
 
 import cr.ac.una.wstarea.Model.Empleado;
 import cr.ac.una.wstarea.Model.Marca;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,7 @@ public class EmpleadoDto {
     private final Date nacimiento;
     private Long id;
     private String psswr;
+    private byte[] foto;
     
     
     public EmpleadoDto(Empleado empleado){
@@ -34,6 +36,7 @@ public class EmpleadoDto {
         this.admin = (empleado.getAdmin().intValue()==1);
         this.nacimiento = empleado.getFechaNac();
         this.psswr = empleado.getPasswrd();
+        this.foto = empleado.getFoto();
       //  this.marc = (List<MarcaDto>) new MarcaDto ((Marca) empleado.getMarca());
     }     
 
@@ -93,6 +96,8 @@ public class EmpleadoDto {
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
+    
+    
 /*
     public List<MarcaDto> getMarc() {
         return marc;
@@ -102,6 +107,14 @@ public class EmpleadoDto {
         this.marc = marc;
     }
      */
+
+    public Date getNacimiento() {
+        return nacimiento;
+    }
+
+    public byte[] getFoto() {
+        return foto;
+    }
     
     
 }

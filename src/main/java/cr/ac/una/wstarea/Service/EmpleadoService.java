@@ -26,23 +26,25 @@ public class EmpleadoService {
       private final EntityManager em = EntityManagerHelper.getManager();
       
        public Respuesta BuscarFolio(String folio) {
-           
+           Respuesta retorne = null;
              try {
             Query qry = em.createNamedQuery("Empleado.findByFolio",Empleado.class);
-          if(null!=qry)  qry.setParameter("folio",folio);
-
-               return new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Empleado", new EmpleadoDto((Empleado) qry.getSingleResult()));
+          if(null!=qry) qry.setParameter("folio",folio);
+              if(null!=qry) {
+                  Empleado aux = (Empleado)qry.getSingleResult();
+                  retorne = new Respuesta(true, CodigoRespuesta.CORRECTO, "", "", "Empleado", new EmpleadoDto(aux));
+              }
             }
              catch (NoResultException ex) {
-            return new Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No existe un usuario con las credenciales ingresadas.", "validarUsuario NoResultException");
+             retorne = new  Respuesta(false, CodigoRespuesta.ERROR_NOENCONTRADO, "No existe un usuario con las credenciales ingresadas.", "validarUsuario NoResultException");
         } catch (NonUniqueResultException ex) {
             LOG.log(Level.SEVERE, "Ocurrio un error al consultar el usuario.", ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al consultar el usuario.", "validarUsuario NonUniqueResultException");
+            retorne = new  Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al consultar el usuario.", "validarUsuario NonUniqueResultException");
         } catch (Exception ex) {
             LOG.log(Level.SEVERE, "Ocurrio un error al consultar el usuario.", ex);
-            return new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al consultar el usuario.", "validarUsuario " + ex.getMessage());
+            retorne = new Respuesta(false, CodigoRespuesta.ERROR_INTERNO, "Ocurrio un error al consultar el usuario.", "validarUsuario " + ex.getMessage());
         }
-           
+          return retorne; 
        }
               
        public Respuesta guardarEmpleado(EmpleadoDto empl) {

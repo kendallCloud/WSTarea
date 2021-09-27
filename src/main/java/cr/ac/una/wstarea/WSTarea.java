@@ -5,13 +5,15 @@
  */
 package cr.ac.una.wstarea;
 
+import com.sun.xml.wss.saml.internal.saml11.jaxb10.Object;
 import cr.ac.una.wstarea.Dto.EmpleadoDto;
+import cr.ac.una.wstarea.Dto.MarcaDto;
 import cr.ac.una.wstarea.Service.EmpleadoService;
+import cr.ac.una.wstarea.Service.MarcaService;
 import cr.ac.una.wstarea.Util.Respuesta;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
-import java.lang.String;
 import java.util.Date;
 
 /**
@@ -36,15 +38,15 @@ public class WSTarea {
      */
     @WebMethod(operationName = "validar")
      public String Validar(@WebParam(name = "folio") String folio){
-         String folios[]={"098w","6s4","ab12","af32"};
+        EmpleadoService user = new EmpleadoService();
+        Respuesta result = user.BuscarFolio(folio);
+        EmpleadoDto admin = (EmpleadoDto) result.getResultado();
          
-         String result="No se encontró el folio.\n";
+         String resultado="No se encontró el folio.\n";
          
-         for(String val:folios){
-                if(val == null ? folio == null : val.equals(folio)) result="si existe el folio.\n";
-            }
+         if(result.getEstado()) resultado=" se encontró el folio.\n";
          
-        return result;
+        return resultado;
          
      }
 
@@ -52,14 +54,13 @@ public class WSTarea {
      * Web service operation
      */
     @WebMethod(operationName = "ValidarAdmin")
-    public Boolean ValidarAdmin(@WebParam(name = "psswrd") String psswrd, @WebParam(name = "folio") String folio) {
-     
+    public Boolean ValidarAdmin(@WebParam(name = "psswrd") String psswrd, @WebParam(name = "folio") String folio) { 
         
         EmpleadoService user = new EmpleadoService();
         Respuesta result = user.BuscarFolio(folio);
         EmpleadoDto admin = (EmpleadoDto) result.getResultado();
         
-        return (result.getEstado()  &&  (admin.getPsswr() == null ? psswrd == null : admin.getPsswr().equals(psswrd)));
+        return result.getEstado();
         
     }
 
@@ -71,6 +72,33 @@ public class WSTarea {
         //TODO write your implementation code here:
         return null;
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "GuaradarEmpleado")
+    public Boolean GuaradarEmpleado(@WebParam(name = "emp") java.lang.Object emp) {
+        //TODO write your implementation code here:
+        return null;
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "CorregirFecha")
+    public Boolean CorregirFecha(@WebParam(name = "fecha") Date fecha, @WebParam(name = "folio_emp") String folio_emp, @WebParam(name = "salida") Boolean salida) {
+        
+        EmpleadoService user = new EmpleadoService();
+        Respuesta result = user.BuscarFolio(folio_emp);
+        EmpleadoDto admin = (EmpleadoDto) result.getResultado();
+        MarcaDto up = null;
+        if(admin!=null)  up = new MarcaDto(fecha,admin.getId(),salida);
+      
+        MarcaService marca = new MarcaService();
+        Respuesta subir = marca.guardarMarca(up,true);
+        return null;
+    }
+
 
     /**
      * Web service operation

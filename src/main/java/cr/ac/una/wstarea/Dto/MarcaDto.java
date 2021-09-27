@@ -7,12 +7,6 @@ package cr.ac.una.wstarea.Dto;
 
 import cr.ac.una.wstarea.Model.Marca;
 import java.util.Date;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.validation.constraints.NotNull;
-
 /**
  *
  * @author Kendall
@@ -22,12 +16,36 @@ public class MarcaDto {
     private Date horaSalida;
     private Date jornada;
     private Long id;
+     private Long pkMarca;
 
     public MarcaDto(Marca marc) {
         this.id = marc.getPkMarca();
         this.horaEntrada = marc.getHoraEntrada();
         this.horaSalida = marc.getHoraEntrada();
         this.jornada = marc.getHoraSalida();
+        this.pkMarca = marc.getPkMarca();
+    }
+
+    public MarcaDto(Date fecha, Long id_emp, Boolean salida) {
+          this.id = id_emp;
+          if(salida) this.horaSalida = fecha;
+          else this.horaEntrada = fecha;
+    }
+
+    public Long getPkMarca() {
+        return pkMarca;
+    }
+
+    public void setPkMarca(Long pkMarca) {
+        this.pkMarca = pkMarca;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getHoraEntrada() {
