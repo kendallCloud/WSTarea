@@ -29,6 +29,8 @@ public class WSTarea {
 
     /**
      * This is a sample web service operation
+     * @param txt
+     * @return 
      */
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
@@ -115,6 +117,15 @@ return r.generarReporteEmpleados2();
         }
 //        return null;
   
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "prueba")
+    public String prueba() {
+        //TODO write your implementation code here:
+        return "SIUUUUUUUUUUUU";
     }
 }
     
